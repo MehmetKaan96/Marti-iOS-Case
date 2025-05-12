@@ -18,12 +18,12 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 1
+        locationManager.distanceFilter = 100
         locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        NotificationCenter.default.post(name: .locationDidUpdate, object: nil)
+        NotificationCenter.default.post(name: .locationDidUpdate, object: location)
     }
 }

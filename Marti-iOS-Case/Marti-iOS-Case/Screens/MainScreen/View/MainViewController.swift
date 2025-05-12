@@ -25,10 +25,15 @@ final class MainViewController: UIViewController, MKMapViewDelegate {
     
     private func configureViewModelCallBack() {
         viewModel.onLocationUpdate = { [weak self] location in
+            guard let self = self else { return }
             let region = MKCoordinateRegion(center: location.coordinate,
-                                            latitudinalMeters: 100,
-                                            longitudinalMeters: 100)
-            self?.mainMapView.setRegion(region, animated: true)
+                                            latitudinalMeters: 500,
+                                            longitudinalMeters: 500)
+            self.mainMapView.setRegion(region, animated: true)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location.coordinate
+            annotation.title = "Konum \(self.viewModel.locations.count)"
+            self.mainMapView.addAnnotation(annotation)
         }
     }
 }

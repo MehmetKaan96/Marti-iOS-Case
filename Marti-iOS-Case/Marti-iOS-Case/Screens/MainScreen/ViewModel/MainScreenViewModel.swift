@@ -11,7 +11,7 @@ import CoreLocation
 final class MainScreenViewModel {
     var currentLocation: CLLocation?
     var onLocationUpdate: ((CLLocation) -> Void)?
-    
+    private(set) var locations: [CLLocation] = []
     
     init () {
         NotificationCenter.default.addObserver(self, selector: #selector(locationDidUpdated(_:)), name: .locationDidUpdate, object: nil)
@@ -20,8 +20,19 @@ final class MainScreenViewModel {
     @objc
     func locationDidUpdated(_ notification: Notification) {
         guard let location = notification.object as? CLLocation else { return }
-        self.currentLocation = location
-        onLocationUpdate?(location)
+        if locations.isEmpty {
+            locations.append(location)
+            onLocationUpdate?(location)
+            return
+        }
+        
+        guard let lastLocation = locations.last else { return }
+        let distance = location.distance(from: lastLocation)
+        
+        if distance >= 100 {
+            locations.append(location)
+            onLocationUpdate?(location)
+        }
     }
     
     deinit {
