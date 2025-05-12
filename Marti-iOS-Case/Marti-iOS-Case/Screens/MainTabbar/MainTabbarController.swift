@@ -16,7 +16,7 @@ final class MainTabbarController: UITabBarController {
     
     private func setupViewControllers() {
         let mainViewController = MainViewController()
-        mainViewController.tabBarItem = UITabBarItem(title: "Main", image: UIImage(systemName: "home"), tag: 0)
+        mainViewController.tabBarItem = UITabBarItem(title: "Main", image: UIImage(systemName: "house"), tag: 0)
         
         let tagViewController = TagViewController()
         tagViewController.tabBarItem = UITabBarItem(title: "Tag", image: UIImage(systemName: "location.square"), tag: 1)
