@@ -14,7 +14,7 @@
 		D397E16D2DD27CE3007A79FB /* Exceptions for "Marti-iOS-Case" folder in "Marti-iOS-Case" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Resource/Info.plist,
 			);
 			target = D397E15A2DD27CE1007A79FB /* Marti-iOS-Case */;
 		};
@@ -147,7 +147,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8TRXM8F5W6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Marti-iOS-Case/Info.plist";
+				INFOPLIST_FILE = "Marti-iOS-Case/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -179,7 +179,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8TRXM8F5W6;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Marti-iOS-Case/Info.plist";
+				INFOPLIST_FILE = "Marti-iOS-Case/Resource/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
