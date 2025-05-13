@@ -18,6 +18,7 @@ final class MainTabbarController: UITabBarController {
     private func setupCustomTabbar() {
         let customTabBar = FloatingTabbar()
         setValue(customTabBar, forKey: "tabBar")
+        tabBar.tintColor = .label
     }
     
     private func setupViewControllers() {

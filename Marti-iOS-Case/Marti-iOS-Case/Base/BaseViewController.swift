@@ -69,14 +69,12 @@ class BaseViewController: UIViewController, MKMapViewDelegate {
     private func setupToggleButton() {
         toggleButton.setTitle("Durdur", for: .normal)
         toggleButton.setTitleColor(.label, for: .normal)
-        toggleButton.translatesAutoresizingMaskIntoConstraints = false
         toggleButton.addTarget(self, action: #selector(toggleLocationTracking), for: .touchUpInside)
     }
     
     private func setupResetButton() {
         resetButton.setTitle("Rotayı Sıfırla", for: .normal)
         resetButton.setTitleColor(.label, for: .normal)
-        resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.addTarget(self, action: #selector(resetRoute), for: .touchUpInside)
     }
     
