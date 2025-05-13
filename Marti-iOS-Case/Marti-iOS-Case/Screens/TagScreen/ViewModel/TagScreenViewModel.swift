@@ -8,4 +8,8 @@
 import Foundation
 import CoreLocation
 
-final class TagScreenViewModel: BaseLocationViewModel { }
+final class TagScreenViewModel: BaseLocationViewModel {
+    init() {
+        super.init(screenType: .tag)
+    }
+}

@@ -8,6 +8,12 @@
 import UIKit
 import CoreData
 
+enum ScreenType: String {
+    case main
+    case tag
+    case taxi
+}
+
 final class CoreDataManager {
     
     private static var context: NSManagedObjectContext {
@@ -15,12 +21,13 @@ final class CoreDataManager {
         return appDelegate.persistentContainer.viewContext
     }
     
-    static func saveLocation(latitude: Double, longitude: Double, address: String?) {
+    static func saveLocation(latitude: Double, longitude: Double, address: String?, screenType: ScreenType) {
         let newLocation = Location(context: context)
         newLocation.latitude = latitude
         newLocation.longitude = longitude
         newLocation.address = address
         newLocation.timestamp = Date()
+        newLocation.screenType = screenType.rawValue
         
         do {
             try context.save()
@@ -58,6 +65,17 @@ final class CoreDataManager {
             try context.save()
         } catch {
             print("Tüm konumlar silinemedi: \(error.localizedDescription)")
+        }
+    }
+    
+    static func fetchLocations(for screenType: ScreenType) -> [Location] {
+        let request: NSFetchRequest<Location> = Location.fetchRequest()
+        request.predicate = NSPredicate(format: "screenType == %@", screenType.rawValue)
+        do {
+            return try context.fetch(request)
+        } catch {
+            print("Konumlar alınamadı: \(error)")
+            return []
         }
     }
 }

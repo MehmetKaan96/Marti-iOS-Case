@@ -8,4 +8,8 @@
 import Foundation
 import CoreLocation
 
-final class MainScreenViewModel: BaseLocationViewModel { }
+final class MainScreenViewModel: BaseLocationViewModel {
+    init() {
+        super.init(screenType: .main)
+    }
+}

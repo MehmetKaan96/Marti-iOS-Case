@@ -15,6 +15,7 @@ final class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
+        showPinsIfExist()
         configureViewModelCallBack()
     }
     
@@ -35,6 +36,18 @@ final class MainViewController: BaseViewController {
             annotation.coordinate = location.coordinate
             annotation.title = "Konum \(self.viewModel.locations.count)"
             self.mainMapView.addAnnotation(annotation)
+        }
+    }
+    
+    private func showPinsIfExist() {
+        let pins = CoreDataManager.fetchLocations(for: .main)
+        guard !pins.isEmpty else { return }
+        
+        for pin in pins {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+            annotation.title = pin.address ?? "Konum"
+            mapView.addAnnotation(annotation)
         }
     }
 }
