@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -21,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UxR-6X-GCm">
-                    <rect key="frame" x="0.0" y="118" width="393" height="734"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <standardMapConfiguration key="preferredConfiguration"/>
                 </mapView>
             </subviews>
@@ -29,7 +30,7 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="UxR-6X-GCm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9GD-bZ-iEq"/>
-                <constraint firstItem="UxR-6X-GCm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="jw2-Qo-sQg"/>
+                <constraint firstItem="UxR-6X-GCm" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jw2-Qo-sQg"/>
                 <constraint firstAttribute="bottom" secondItem="UxR-6X-GCm" secondAttribute="bottom" id="ulI-lp-Eml"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UxR-6X-GCm" secondAttribute="trailing" id="zdE-3Q-qUW"/>
             </constraints>

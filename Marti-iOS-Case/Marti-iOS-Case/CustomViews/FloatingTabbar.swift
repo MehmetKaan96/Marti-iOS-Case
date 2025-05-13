@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FloatingTabbar: UITabBar {
+final class FloatingTabbar: UITabBar {
     private let customHeight: CGFloat = 70
     private let horizontalMargin: CGFloat = 32
     

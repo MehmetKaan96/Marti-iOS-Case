@@ -8,8 +8,8 @@
 import UIKit
 import MapKit
 
-class TaxiViewController: BaseViewController {
-    @IBOutlet weak var taxiMapView: MKMapView!
+final class TaxiViewController: BaseViewController {
+    @IBOutlet final weak var taxiMapView: MKMapView!
     private let taxiScreenViewModel = TaxiScreenViewModel()
 
     override func viewDidLoad() {

@@ -8,9 +8,9 @@
 import UIKit
 import MapKit
 
-class TagViewController: BaseViewController {
+final class TagViewController: BaseViewController {
 
-    @IBOutlet weak var tagMapView: MKMapView!
+    @IBOutlet private weak var tagMapView: MKMapView!
     private let tagScreenViewModel = TagScreenViewModel()
     
     override func viewDidLoad() {
