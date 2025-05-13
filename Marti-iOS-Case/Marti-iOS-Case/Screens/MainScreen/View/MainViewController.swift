@@ -39,6 +39,9 @@ final class MainViewController: BaseViewController {
             annotation.title = "Konum \(self.viewModel.locations.count)"
             self.mainMapView.addAnnotation(annotation)
         }
+        if let current = viewModel.currentLocation {
+            viewModel.onLocationUpdate?(current)
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
