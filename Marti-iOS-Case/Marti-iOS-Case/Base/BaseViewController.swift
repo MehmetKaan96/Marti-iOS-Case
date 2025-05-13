@@ -13,37 +13,71 @@ class BaseViewController: UIViewController, MKMapViewDelegate {
     var mapView: MKMapView!
     private let toggleButton = UIButton(type: .system)
     private let resetButton = UIButton(type: .system)
+    private let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+        return view
+    }()
+    
+    private let buttonStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 16
+        stack.alignment = .center
+        stack.distribution = .fillEqually
+        return stack
+    }()
+    
     private var isTracking = true
     var viewModel: BaseLocationViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupContainerView()
         setupToggleButton()
         setupResetButton()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        containerView.layer.cornerRadius = containerView.frame.height / 2
+    }
+    
+    private func setupContainerView() {
+        view.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
+            containerView.heightAnchor.constraint(equalToConstant: 44)
+        ])
+
+        containerView.addSubview(buttonStackView)
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            buttonStackView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            buttonStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            buttonStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 8),
+            buttonStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -8)
+        ])
+
+        buttonStackView.addArrangedSubview(resetButton)
+        buttonStackView.addArrangedSubview(toggleButton)
+    }
+    
     private func setupToggleButton() {
         toggleButton.setTitle("Durdur", for: .normal)
+        toggleButton.setTitleColor(.label, for: .normal)
         toggleButton.translatesAutoresizingMaskIntoConstraints = false
         toggleButton.addTarget(self, action: #selector(toggleLocationTracking), for: .touchUpInside)
-        
-        view.addSubview(toggleButton)
-        NSLayoutConstraint.activate([
-            toggleButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            toggleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
-        ])
     }
     
     private func setupResetButton() {
         resetButton.setTitle("Rotayı Sıfırla", for: .normal)
+        resetButton.setTitleColor(.label, for: .normal)
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.addTarget(self, action: #selector(resetRoute), for: .touchUpInside)
-
-        view.addSubview(resetButton)
-        NSLayoutConstraint.activate([
-            resetButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            resetButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
-        ])
     }
     
     @objc private func toggleLocationTracking() {
