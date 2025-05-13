@@ -11,12 +11,14 @@ import MapKit
 class TagViewController: BaseViewController {
 
     @IBOutlet weak var tagMapView: MKMapView!
-    private let viewModel = TagScreenViewModel()
+    private let tagScreenViewModel = TagScreenViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
+        self.viewModel = tagScreenViewModel
         configureViewModelCallBack()
+        showPinsIfExist()
     }
     
     private func setupMapView() {

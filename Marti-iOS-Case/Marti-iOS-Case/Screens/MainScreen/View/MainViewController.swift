@@ -10,13 +10,14 @@ import MapKit
 
 final class MainViewController: BaseViewController {
     @IBOutlet private weak var mainMapView: MKMapView!
-    private let viewModel = MainScreenViewModel()
+    private let mainScreenViewModel = MainScreenViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        showPinsIfExist()
+        self.viewModel = mainScreenViewModel
         configureViewModelCallBack()
+        showPinsIfExist()
     }
     
     private func setupMapView() {
@@ -39,15 +40,22 @@ final class MainViewController: BaseViewController {
         }
     }
     
-    private func showPinsIfExist() {
-        let pins = CoreDataManager.fetchLocations(for: .main)
-        guard !pins.isEmpty else { return }
-        
-        for pin in pins {
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-            annotation.title = pin.address ?? "Konum"
-            mapView.addAnnotation(annotation)
+    func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
         }
+        
+        let identifier = ScreenType.main.rawValue
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.image = UIImage(named: "custom-pin")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        return annotationView
     }
 }

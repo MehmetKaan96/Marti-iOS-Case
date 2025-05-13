@@ -13,6 +13,7 @@ class BaseViewController: UIViewController, MKMapViewDelegate {
     var mapView: MKMapView!
     private let toggleButton = UIButton(type: .system)
     private var isTracking = true
+    var viewModel: BaseLocationViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,4 +42,15 @@ class BaseViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func showPinsIfExist() {
+        let pins = CoreDataManager.fetchLocations(for: viewModel.screenType)
+        guard !pins.isEmpty else { return }
+        
+        for pin in pins {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+            annotation.title = pin.address ?? "Konum"
+            mapView.addAnnotation(annotation)
+        }
+    }
 }
