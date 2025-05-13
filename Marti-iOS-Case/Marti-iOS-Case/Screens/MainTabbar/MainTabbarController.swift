@@ -11,7 +11,13 @@ final class MainTabbarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCustomTabbar()
         setupViewControllers()
+    }
+    
+    private func setupCustomTabbar() {
+        let customTabBar = FloatingTabbar()
+        setValue(customTabBar, forKey: "tabBar")
     }
     
     private func setupViewControllers() {
@@ -19,7 +25,7 @@ final class MainTabbarController: UITabBarController {
         mainViewController.tabBarItem = UITabBarItem(title: "Main", image: UIImage(systemName: "house"), tag: 0)
         
         let tagViewController = TagViewController()
-        tagViewController.tabBarItem = UITabBarItem(title: "Tag", image: UIImage(systemName: "location.square"), tag: 1)
+        tagViewController.tabBarItem = UITabBarItem(title: "Tag", image: UIImage(systemName: "person.2"), tag: 1)
         
         let taxiViewController = TaxiViewController()
         taxiViewController.tabBarItem = UITabBarItem(title: "Taxi", image: UIImage(systemName: "car"), tag: 2)

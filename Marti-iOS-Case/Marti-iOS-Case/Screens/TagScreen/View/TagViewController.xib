@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dei-of-k7M">
-                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <rect key="frame" x="0.0" y="118" width="393" height="734"/>
                     <standardMapConfiguration key="preferredConfiguration"/>
                 </mapView>
             </subviews>
@@ -30,7 +30,7 @@
             <constraints>
                 <constraint firstItem="dei-of-k7M" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Hkt-ON-KSB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dei-of-k7M" secondAttribute="trailing" id="ONg-aK-dAS"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="dei-of-k7M" secondAttribute="bottom" id="TDe-5a-iXA"/>
+                <constraint firstAttribute="bottom" secondItem="dei-of-k7M" secondAttribute="bottom" id="TDe-5a-iXA"/>
                 <constraint firstItem="dei-of-k7M" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="utL-8Y-bUy"/>
             </constraints>
             <point key="canvasLocation" x="-11" y="20"/>

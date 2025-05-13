@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WdV-Ud-aYX">
-                    <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                    <rect key="frame" x="0.0" y="118" width="393" height="734"/>
                     <standardMapConfiguration key="preferredConfiguration"/>
                 </mapView>
             </subviews>
@@ -30,7 +30,7 @@
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="WdV-Ud-aYX" secondAttribute="trailing" id="7uw-xK-Cx9"/>
                 <constraint firstItem="WdV-Ud-aYX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="IUj-Ln-Jx2"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="WdV-Ud-aYX" secondAttribute="bottom" id="REM-Zu-Dik"/>
+                <constraint firstAttribute="bottom" secondItem="WdV-Ud-aYX" secondAttribute="bottom" id="REM-Zu-Dik"/>
                 <constraint firstItem="WdV-Ud-aYX" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ant-VV-qpP"/>
             </constraints>
             <point key="canvasLocation" x="-11" y="20"/>
