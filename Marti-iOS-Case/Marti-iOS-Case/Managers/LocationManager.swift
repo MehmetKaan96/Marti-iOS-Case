@@ -12,13 +12,14 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     
     static let shared = LocationManager()
     private let locationManager = CLLocationManager()
+    private let distanceFilterValue: CLLocationDistance = 100
     
     private override init() {
         super.init()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 100
+        locationManager.distanceFilter = distanceFilterValue
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
     }

@@ -13,6 +13,7 @@ class BaseLocationViewModel {
     var onLocationUpdate: ((CLLocation) -> Void)?
     private(set) var locations: [CLLocation] = []
     let screenType: ScreenType
+    private let minimumDistanceForUpdate: CLLocationDistance = 100
     
     init(screenType: ScreenType) {
         self.screenType = screenType
@@ -28,7 +29,7 @@ class BaseLocationViewModel {
     private func locationDidUpdated(_ notification: Notification) {
         guard let location = notification.object as? CLLocation else { return }
         
-        if locations.isEmpty || (location.distance(from: locations.last!) >= 100) {
+        if locations.isEmpty || (location.distance(from: locations.last!) >= minimumDistanceForUpdate) {
             currentLocation = location
             locations.append(location)
             onLocationUpdate?(location)
