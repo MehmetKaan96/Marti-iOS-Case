@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  TaxiViewController.swift
 //  Marti-iOS-Case
 //
 //  Created by Mehmet Kaan on 12.05.2025.
@@ -8,23 +8,23 @@
 import UIKit
 import MapKit
 
-final class MainViewController: BaseViewController {
-    @IBOutlet private weak var mainMapView: MKMapView!
-    private let mainScreenViewModel = MainScreenViewModel()
-    
+class TaxiViewController: BaseViewController {
+    @IBOutlet weak var taxiMapView: MKMapView!
+    private let taxiScreenViewModel = TaxiScreenViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMapView()
-        self.viewModel = mainScreenViewModel
+        self.viewModel = taxiScreenViewModel
         configureViewModelCallBack()
         showPinsIfExist()
         drawRouteIfExist()
     }
     
     private func setupMapView() {
-        self.mapView = mainMapView
-        mainMapView.delegate = self
-        mainMapView.showsUserLocation = true
+        self.mapView = taxiMapView
+        taxiMapView.delegate = self
+        taxiMapView.showsUserLocation = true
     }
     
     private func configureViewModelCallBack() {
@@ -33,11 +33,11 @@ final class MainViewController: BaseViewController {
             let region = MKCoordinateRegion(center: location.coordinate,
                                             latitudinalMeters: 500,
                                             longitudinalMeters: 500)
-            self.mainMapView.setRegion(region, animated: true)
+            self.taxiMapView.setRegion(region, animated: true)
             let annotation = MKPointAnnotation()
             annotation.coordinate = location.coordinate
             annotation.title = "Konum \(self.viewModel.locations.count)"
-            self.mainMapView.addAnnotation(annotation)
+            self.taxiMapView.addAnnotation(annotation)
         }
     }
     
@@ -52,7 +52,7 @@ final class MainViewController: BaseViewController {
         if annotationView == nil {
             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
-            annotationView?.image = UIImage(named: "custom-pin")
+            annotationView?.image = UIImage(named: "taxi")
         } else {
             annotationView?.annotation = annotation
         }
@@ -69,4 +69,5 @@ final class MainViewController: BaseViewController {
         }
         return MKOverlayRenderer(overlay: overlay)
     }
+
 }

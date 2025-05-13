@@ -19,6 +19,11 @@ class BaseLocationViewModel {
         NotificationCenter.default.addObserver(self, selector: #selector(locationDidUpdated(_:)), name: .locationDidUpdate, object: nil)
     }
     
+    func resetLocations() {
+        currentLocation = nil
+        locations.removeAll()
+    }
+    
     @objc
     private func locationDidUpdated(_ notification: Notification) {
         guard let location = notification.object as? CLLocation else { return }

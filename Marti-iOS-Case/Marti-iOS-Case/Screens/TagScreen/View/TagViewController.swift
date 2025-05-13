@@ -19,6 +19,7 @@ class TagViewController: BaseViewController {
         self.viewModel = tagScreenViewModel
         configureViewModelCallBack()
         showPinsIfExist()
+        drawRouteIfExist()
     }
     
     private func setupMapView() {
@@ -39,5 +40,24 @@ class TagViewController: BaseViewController {
             annotation.title = "Konum \(self.viewModel.locations.count)"
             self.tagMapView.addAnnotation(annotation)
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let identifier = ScreenType.tag.rawValue
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.image = UIImage(named: "car")
+        } else {
+            annotationView?.annotation = annotation
+        }
+        
+        return annotationView
     }
 }

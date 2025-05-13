@@ -47,24 +47,16 @@ final class CoreDataManager {
         }
     }
 
-    static func deleteLocation(_ location: Location) {
-        context.delete(location)
-        do {
-            try context.save()
-        } catch {
-            print("Konum silinemedi: \(error.localizedDescription)")
-        }
-    }
-
-    static func deleteAllLocations() {
+    static func deleteLocations(for screenType: ScreenType) {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Location.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "screenType == %@", screenType.rawValue)
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
             try context.execute(deleteRequest)
             try context.save()
         } catch {
-            print("Tüm konumlar silinemedi: \(error.localizedDescription)")
+            print("❌ Konumlar silinemedi: \(error)")
         }
     }
     
