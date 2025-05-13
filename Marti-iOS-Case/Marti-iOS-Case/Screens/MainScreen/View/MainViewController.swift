@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-final class MainViewController: UIViewController, MKMapViewDelegate {
+final class MainViewController: BaseViewController {
     @IBOutlet private weak var mainMapView: MKMapView!
     private let viewModel = MainScreenViewModel()
     
@@ -19,6 +19,7 @@ final class MainViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupMapView() {
+        self.mapView = mainMapView
         mainMapView.delegate = self
         mainMapView.showsUserLocation = true
     }

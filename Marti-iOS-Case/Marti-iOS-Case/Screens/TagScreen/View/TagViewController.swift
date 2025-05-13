@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class TagViewController: UIViewController, MKMapViewDelegate {
+class TagViewController: BaseViewController {
 
     @IBOutlet weak var tagMapView: MKMapView!
     private let viewModel = TagScreenViewModel()
@@ -20,6 +20,7 @@ class TagViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupMapView() {
+        self.mapView = tagMapView
         tagMapView.delegate = self
         tagMapView.showsUserLocation = true
     }

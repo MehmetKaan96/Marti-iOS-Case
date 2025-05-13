@@ -19,11 +19,20 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 100
+        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         NotificationCenter.default.post(name: .locationDidUpdate, object: location)
+    }
+    
+    func startUpdating() {
+        locationManager.startUpdatingLocation()
+    }
+    
+    func stopUpdating() {
+        locationManager.stopUpdatingLocation()
     }
 }
