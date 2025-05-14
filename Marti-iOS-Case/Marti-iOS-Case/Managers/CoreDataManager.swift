@@ -56,7 +56,7 @@ final class CoreDataManager {
             try context.execute(deleteRequest)
             try context.save()
         } catch {
-            print("❌ Konumlar silinemedi: \(error)")
+            print("Konumlar silinemedi: \(error)")
         }
     }
     
