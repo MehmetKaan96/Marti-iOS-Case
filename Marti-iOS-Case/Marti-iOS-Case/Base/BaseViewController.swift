@@ -81,7 +81,7 @@ class BaseViewController: UIViewController, MKMapViewDelegate {
     @objc private func toggleLocationTracking() {
         isTracking.toggle()
         toggleButton.setTitle(isTracking ? "Durdur" : "Başlat", for: .normal)
-        if isTracking {
+        if isTracking { //TODO: kontrol viewModel üzerinden yapılmalı
             LocationManager.shared.startUpdating()
         } else {
             LocationManager.shared.stopUpdating()
@@ -115,4 +115,5 @@ class BaseViewController: UIViewController, MKMapViewDelegate {
         let polyline = MKPolyline(coordinates: coordinates, count: coordinates.count)
         mapView.addOverlay(polyline)
     }
+
 }

@@ -23,6 +23,7 @@ final class FloatingTabbar: UITabBar {
         let safeArea = UIApplication.shared.windows.first?.safeAreaInsets.bottom ?? 0
         let yOffset = safeArea > 0 ? safeArea / 2 : 10
         
+        //TODO: force casting'i optioanl unwrapping olarak handle et
         self.frame = CGRect(
             x: horizontalMargin,
             y: self.superview!.bounds.height - customHeight - yOffset - 10,
