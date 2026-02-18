@@ -1,0 +1,71 @@
+name: AI Code Review (Swift)
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  ai_review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Fetch PR diff
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          git diff origin/${{ github.base_ref }} > diff.txt
+
+      - name: Run ChatGPT Swift Review
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python3 - <<'EOF'
+          import openai
+          import os
+
+          openai.api_key = os.getenv("OPENAI_API_KEY")
+
+          diff = open("diff.txt").read()
+
+          prompt = f"""
+          You are a senior iOS engineer specializing in Swift, UIKit, and SwiftUI.
+
+          Review this GitHub Pull Request diff.
+
+          Focus on:
+          - crashes and runtime bugs
+          - SwiftUI state management issues
+          - UIKit lifecycle mistakes
+          - memory leaks (retain cycles, closures)
+          - performance issues (layout, async work)
+          - code style and maintainability
+          - missing tests
+
+          Return feedback grouped by:
+          Critical / Major / Minor
+
+          Diff:
+          {diff}
+          """
+
+          response = openai.ChatCompletion.create(
+              model="gpt-5.2",
+              messages=[{"role": "user", "content": prompt}]
+          )
+
+          review = response["choices"][0]["message"]["content"]
+
+          print("\n===== AI REVIEW OUTPUT =====\n")
+          print(review)
+
+          with open("review.md", "w") as f:
+              f.write(review)
+          EOF
+
+      - name: Upload Review Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: swift-ai-review
+          path: review.md
