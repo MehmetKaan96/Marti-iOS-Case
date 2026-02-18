@@ -35,4 +35,76 @@ jobs:
           from openai import OpenAI
 
           # OpenAI Client
-          client = OpenAI(api_key=os._
+          client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+          # Diff oku
+          with open("diff.txt", "r") as f:
+              diff = f.read()
+
+          # Diff çok büyükse truncate et
+          max_chars = 12000
+          if len(diff) > max_chars:
+              diff = diff[:max_chars] + "\n\n...[TRUNCATED]..."
+
+          # Swift odaklı prompt
+          prompt = f"""
+          You are a senior iOS engineer specializing in Swift, UIKit, and SwiftUI.
+
+          Review this GitHub Pull Request diff.
+
+          Focus on:
+          - crashes and runtime bugs
+          - SwiftUI state management issues
+          - UIKit lifecycle mistakes
+          - memory leaks (retain cycles, closures)
+          - async/await and concurrency problems
+          - performance issues (layout, rendering)
+          - maintainability and best practices
+          - missing tests
+
+          Return feedback grouped by severity:
+
+          Critical:
+          Major:
+          Minor:
+
+          Diff:
+          {diff}
+          """
+
+          # OpenAI Chat Completion
+          response = client.chat.completions.create(
+              model="gpt-4o",
+              messages=[
+                  {"role": "user", "content": prompt}
+              ]
+          )
+
+          review = response.choices[0].message.content
+
+          print("\n===== AI REVIEW OUTPUT =====\n")
+          print(review)
+
+          # Review dosyasına yaz
+          with open("review.md", "w") as f:
+              f.write("# 🤖 Swift AI Code Review\n\n")
+              f.write(review)
+
+          EOF
+
+      # 5. Review artifact upload et
+      - name: Upload Review Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: swift-ai-review
+          path: review.md
+
+      # 6. (Opsiyonel) PR’a otomatik yorum bırakmak istersen aç
+      # - name: Comment AI Review on PR
+      #   uses: peter-evans/create-or-update-comment@v3
+      #   with:
+      #     issue-number: ${{ github.event.pull_request.number }}
+      #     body: |
+      #       ## 🤖 Swift AI Code Review Completed
+      #
+      #       Review artifact is available in Actions → swift-ai-review → review.md
