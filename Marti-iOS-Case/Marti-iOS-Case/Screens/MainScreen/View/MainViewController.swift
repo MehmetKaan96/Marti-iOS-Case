@@ -135,26 +135,13 @@ final class MainViewController: BaseViewController {
          return annotationView
      }
     
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        if let polyline = overlay as? MKPolyline {
-//            let renderer = MKPolylineRenderer(polyline: polyline)
-//            renderer.strokeColor = .systemGreen
-//            renderer.lineWidth = 3
-//            return renderer
-//        }
-//        return MKOverlayRenderer(overlay: overlay)
-//    }
-    
-    func mapView(_ mapView: MKMapView,
-                 rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-
-        // ❌ HATA 11: Polyline dışındaki overlay’ler yanlış render edilir
-        let renderer = MKPolylineRenderer(overlay: overlay)
-
-        // ❌ HATA 12: UI style yanlış (strokeColor nil olabilir)
-        renderer.strokeColor = nil
-        renderer.lineWidth = -5 // ❌ negatif lineWidth
-
-        return renderer
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let polyline = overlay as? MKPolyline {
+            let renderer = MKPolylineRenderer(polyline: polyline)
+            renderer.strokeColor = .systemGreen
+            renderer.lineWidth = 3
+            return renderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
     }
 }
