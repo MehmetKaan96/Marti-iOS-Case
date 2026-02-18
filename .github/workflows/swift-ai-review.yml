@@ -9,63 +9,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Repo checkout
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2. PR diff al
       - name: Fetch PR diff
         run: |
           git fetch origin ${{ github.base_ref }}
           git diff origin/${{ github.base_ref }} > diff.txt
 
+      # 3. Python + OpenAI SDK install
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install openai
+
+      # 4. ChatGPT Swift Review çalıştır
       - name: Run ChatGPT Swift Review
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           python3 - <<'EOF'
-          import openai
           import os
+          from openai import OpenAI
 
-          openai.api_key = os.getenv("OPENAI_API_KEY")
-
-          diff = open("diff.txt").read()
-
-          prompt = f"""
-          You are a senior iOS engineer specializing in Swift, UIKit, and SwiftUI.
-
-          Review this GitHub Pull Request diff.
-
-          Focus on:
-          - crashes and runtime bugs
-          - SwiftUI state management issues
-          - UIKit lifecycle mistakes
-          - memory leaks (retain cycles, closures)
-          - performance issues (layout, async work)
-          - code style and maintainability
-          - missing tests
-
-          Return feedback grouped by:
-          Critical / Major / Minor
-
-          Diff:
-          {diff}
-          """
-
-          response = openai.ChatCompletion.create(
-              model="gpt-5.2",
-              messages=[{"role": "user", "content": prompt}]
-          )
-
-          review = response["choices"][0]["message"]["content"]
-
-          print("\n===== AI REVIEW OUTPUT =====\n")
-          print(review)
-
-          with open("review.md", "w") as f:
-              f.write(review)
-          EOF
-
-      - name: Upload Review Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: swift-ai-review
-          path: review.md
+          # OpenAI Client
+          client = OpenAI(api_key=os._
